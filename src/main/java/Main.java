@@ -4,17 +4,14 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Main {
 
-
     public static void main(String[] args) {
+
+        // створив папки і файли
 
         File directory = new File("Folder1");
 
@@ -33,6 +30,8 @@ public class Main {
         }
         System.out.println(directory.getAbsolutePath());
     }
+    /* скопіював код з посилання яке ти кидав, намагався зрозуміти як привязати це ( інші варіанти теж пробував)
+    до папки яку я створив */
 
     public Set<String> listFilesUsingDirectoryStream(String dir) throws IOException {
         Set<String> fileList = new HashSet<>();
@@ -48,4 +47,3 @@ public class Main {
     }
 
 }
-//E:/Codding/Java cod/FileIScan/Folder1
