@@ -1,20 +1,21 @@
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Collections;
+import java.nio.file.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         // створив папки і файли
 
-        File directory = new File("C:\\Users\\ПК\\Desktop\\COD\\Folder1");
+        File directory = new File("Folder1");
 
         File file1 = new File("Folder1/file1.txt");
         File file2 = new File("Folder1/file2.txt");
@@ -29,36 +30,27 @@ public class Main {
         } catch (IOException e){
             e.printStackTrace();
         }
-        System.out.println(directory.getAbsolutePath());
-    }
-    /* скопіював код з посилання яке ти кидав, намагався зрозуміти як привязати це (інші варіанти теж пробував)
-    до папки яку я створив */
 
-    public Set<String> listFilesUsingDirectoryStream(String dir) throws IOException {
-
-        dir = "C:\\Users\\ПК\\Desktop\\COD\\Folder1";
-
-        Set<String> fileList = new HashSet<>();
-
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(dir))) {
-            for (Path path : stream) {
-                if (!Files.isDirectory(path)) {
-                    fileList.add(path.getFileName()
-                            .toString());
-
-
-
-                }
-
-            }
-
-            System.out.println(fileList);
-            
+        ArrayList<File> fileList = new ArrayList<>();
+        getFiles(new File("Folder1"), fileList);
+        for(File file: fileList) {
+            System.out.println(file.getName());
         }
-        return fileList;
-
     }
 
+    private static void getFiles(File rootFile, List <File> fileList) {
+        if (rootFile.isDirectory()) {
+            File[] directoryFiles = rootFile.listFiles();
+            if (directoryFiles != null) {
+                for (File file: directoryFiles) {
+                    if (file.isDirectory()) {
+                        getFiles(file, fileList);
+                    } else{
+                        fileList.add(file);
 
-
+                    }
+                }
+            }
+        }
+    }
 }
